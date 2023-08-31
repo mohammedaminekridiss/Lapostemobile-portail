@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-portail", "Lapostemobile-portail\Lapostemobile-portail.csproj", "{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-projetrest", "Lapostemobile-projetrest\Lapostemobile-projetrest.csproj", "{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54D6F0C8-87ED-411C-B4DF-CEA4679F33FD}
+	EndGlobalSection
+EndGlobal
