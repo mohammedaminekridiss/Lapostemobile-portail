@@ -139,12 +139,12 @@ public partial class PortailContext : DbContext
                 .HasColumnName("id_caracteristiques_articles");
             entity.Property(e => e.IdArticle).HasColumnName("id_article");
             entity.Property(e => e.NomCaracteristiquesArticles)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Nom_caracteristiques_articles");
-            entity.Property(e => e.TypeCaracteristiquesArticles).HasColumnName("type_caracteristiques_articles");
-            entity.Property(e => e.ValeurCarasteristiquesArticles)
-                .HasColumnType("decimal(18, 0)")
+             entity.Property(e => e.ValeurCarasteristiquesArticles)
+                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasColumnName("valeur_carasteristiques_articles");
 
             entity.HasOne(d => d.IdArticleNavigation).WithMany(p => p.CaracteristiquesArticles)
