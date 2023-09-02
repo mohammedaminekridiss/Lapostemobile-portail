@@ -9,11 +9,9 @@ public partial class CaracteristiquesArticle
 
     public int IdArticle { get; set; }
 
-    public int? TypeCaracteristiquesArticles { get; set; }
-
     public string? NomCaracteristiquesArticles { get; set; }
 
-    public decimal? ValeurCarasteristiquesArticles { get; set; }
+    public string? ValeurCarasteristiquesArticles { get; set; }
 
     public virtual Article IdArticleNavigation { get; set; } = null!;
 }
