@@ -58,7 +58,7 @@ public partial class PortailContext : DbContext
             entity.ToTable("adresse");
 
             entity.Property(e => e.IdAdresse)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_adresse");
             entity.Property(e => e.AdresseComp)
                 .HasMaxLength(40)
@@ -160,7 +160,7 @@ public partial class PortailContext : DbContext
             entity.ToTable("coordonnees_bancaires");
 
             entity.Property(e => e.IdCoordonnees)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_coordonnees");
             entity.Property(e => e.CodeBic)
                 .HasMaxLength(11)
@@ -217,7 +217,7 @@ public partial class PortailContext : DbContext
             entity.ToTable("ligne");
 
             entity.Property(e => e.IdLigne)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_ligne");
             entity.Property(e => e.DatCre)
                 .HasDefaultValueSql("(sysdatetime())")
@@ -254,7 +254,7 @@ public partial class PortailContext : DbContext
             entity.ToTable("ligne_article");
 
             entity.Property(e => e.IdLigneArticle)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_ligne_article");
             entity.Property(e => e.DatCre)
                 .HasDefaultValueSql("(sysdatetime())")
@@ -289,7 +289,7 @@ public partial class PortailContext : DbContext
             entity.ToTable("ligne_option");
 
             entity.Property(e => e.IdLigneOption)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_ligne_option");
             entity.Property(e => e.DatMod)
                 .HasColumnType("date")
@@ -324,6 +324,8 @@ public partial class PortailContext : DbContext
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasColumnName("libelle_mode_livraison");
+            entity.Property(e => e.PrixLivraison)
+              .HasColumnName("prix_livraison");
         });
 
         modelBuilder.Entity<OffreEngagement>(entity =>
@@ -415,7 +417,7 @@ public partial class PortailContext : DbContext
             entity.ToTable("prospect");
 
             entity.Property(e => e.IdProspect)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_prospect");
             entity.Property(e => e.DatCre)
                 .HasDefaultValueSql("(sysdatetime())")
@@ -468,10 +470,12 @@ public partial class PortailContext : DbContext
             entity.HasKey(e => e.IdSouscription).HasName("PK__souscrip__A5BABA325DC0888D");
 
             entity.ToTable("souscription");
-
-            entity.Property(e => e.IdSouscription)
-                .ValueGeneratedNever()
+            
+            
+                 entity.Property(e => e.IdSouscription)
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id_souscription");
+
             entity.Property(e => e.DateModification)
                 .HasColumnType("date")
                 .HasColumnName("date_modification");
