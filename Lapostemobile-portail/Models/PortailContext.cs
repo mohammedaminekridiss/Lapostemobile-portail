@@ -45,11 +45,9 @@ public partial class PortailContext : DbContext
 
     public virtual DbSet<StatutSouscription> StatutSouscriptions { get; set; }
 
-    public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-5SLVIGH\\SQLEXPRESS;Database=Portail;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-UMUO8VR\\SQLEXPRESS;Database=Portail;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -504,15 +502,7 @@ public partial class PortailContext : DbContext
                 .HasColumnName("libelle_statut_souscription");
         });
 
-        modelBuilder.Entity<Utilisateur>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__utilisat__3214EC0767527B57");
-
-            entity.ToTable("utilisateur");
- 
-            entity.Property(e => e.ReinitialiseTokenExpire).HasColumnType("datetime");
-            entity.Property(e => e.VerificationAt).HasColumnType("datetime");
-        });
+        
 
         OnModelCreatingPartial(modelBuilder);
     }
