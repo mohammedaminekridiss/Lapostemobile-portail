@@ -12,9 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Lapostemobile-projetrest.AssemblyInfo.cs = Lapostemobile-projetrest.AssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Email-SERVICE-APP", "Email-SERVICE-APP\Email-SERVICE-APP.csproj", "{F016E432-F279-43DB-963E-86F7CEAEDB16}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-MailService", "Lapostemobile-MailService\Lapostemobile-MailService.csproj", "{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-MailService", "Lapostemobile-MailService\Lapostemobile-MailService.csproj", "{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +28,6 @@ Global
 		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
