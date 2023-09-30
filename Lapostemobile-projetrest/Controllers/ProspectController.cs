@@ -35,19 +35,19 @@ namespace Lapostemobile_projetrest.Controllers
         {
             CoordonneesBancaire c = new CoordonneesBancaire()
             {
-                TitulaireCompte = "",    
-                NomBanque = "",        
-                Iban = "",              
-                CodeBic = "",           
-                DateCreation = null,    
-                DateModification = null  
+                TitulaireCompte = "",
+                NomBanque = "",
+                Iban = "",
+                CodeBic = "",
+                DateCreation = null,
+                DateModification = null
             };
 
             this.context.CoordonneesBancaires.Add(c);
             this.context.SaveChanges();
             prospect.IdCoordonneesBancaires = c.IdCoordonnees;
 
-           
+
             prospect.IdSouscription = idsouscription;
 
             this.context.Prospects.Add(prospect);

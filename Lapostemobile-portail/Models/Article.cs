@@ -12,7 +12,7 @@ public partial class Article
     public string? CodeSap { get; set; }
 
     public string LibelleArticle { get; set; } = null!;
-     
+
     public int? Ordre { get; set; }
 
     public bool Statut { get; set; }

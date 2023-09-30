@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Lapostemobile_portail.Models;
 
@@ -20,6 +19,5 @@ public partial class CoordonneesBancaire
 
     public DateTime? DateModification { get; set; }
 
-    [JsonIgnore]
     public virtual ICollection<Prospect> Prospects { get; set; } = new List<Prospect>();
 }

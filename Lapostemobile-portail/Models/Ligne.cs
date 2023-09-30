@@ -11,7 +11,7 @@ public partial class Ligne
 
     public int? IdOffreEngagement { get; set; }
 
-    public decimal PrixVenteOffre { get; set; }
+    public double? PrixVenteOffre { get; set; }
 
     public DateTime? DatCre { get; set; }
 

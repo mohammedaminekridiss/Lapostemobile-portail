@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Lapostemobile_portail.Models; // Assurez-vous d'importer le namespace approprié pour votre DbContext
-
+using Lapostemobile_portail.Models;  
 namespace ConsoleApp
 {
 
@@ -11,13 +9,11 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            // Configuration
-            IConfiguration configuration = new ConfigurationBuilder()
+             IConfiguration configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
 
-            // Services
-            var serviceProvider = new ServiceCollection()
+             var serviceProvider = new ServiceCollection()
                 .AddDbContext<PortailContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
                 .BuildServiceProvider();
@@ -25,11 +21,7 @@ namespace ConsoleApp
             using (var scope = serviceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<PortailContext>();
-
-                // Utilisez dbContext pour interagir avec la base de données
-                // Par exemple, dbContext.Customers.FirstOrDefault() ou d'autres opérations
-
-                // Lorsque vous avez terminé, la portée sera automatiquement nettoyée
+ 
             }
         }
     }

@@ -1,27 +1,33 @@
 ﻿using Lapostemobile_portail.Models;
+using Lapostemobile_projetrest.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lapostemobile_projetrest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ModeLivraisonController : Controller
+    public class ModeLivraisonController : ControllerBase
     {
-        private readonly PortailContext context;
+        private readonly ModeLivraisonRepository _modeLivraisonRepository;
 
-        public ModeLivraisonController(PortailContext context)
+        public ModeLivraisonController(ModeLivraisonRepository modeLivraisonRepository)
         {
-            this.context = context;
+            _modeLivraisonRepository = modeLivraisonRepository;
         }
-        // GET: api/Livraison
+
+        // GET: api/ModeLivraison
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ModeLivraison>>> Getmode()
+        public async Task<ActionResult<IEnumerable<ModeLivraison>>> GetModeLivraisons()
         {
-            return this.context.ModeLivraisons.ToList();
-
+            try
+            {
+                var modeLivraisons = await _modeLivraisonRepository.GetModeLivraisonsAsync();
+                return Ok(modeLivraisons);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Une erreur interne s'est produite : {ex.Message}");
+            }
         }
-
-
-
     }
 }

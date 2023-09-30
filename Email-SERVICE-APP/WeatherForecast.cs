@@ -1,4 +1,4 @@
-namespace Lapostemobile_projetrest
+namespace Email_SERVICE_APP
 {
     public class WeatherForecast
     {

@@ -1,49 +1,47 @@
-﻿using Lapostemobile_portail.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+ using Lapostemobile_portail.Models;
+using Lapostemobile_projetrest.Repositories;
 
 namespace Lapostemobile_projetrest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StatutSouscriptionController : Controller
+    public class StatutSouscriptionController : ControllerBase
     {
-        private readonly PortailContext context;
+        private readonly StatutSouscriptionRepository _statutSouscriptionRepository;
 
-        public StatutSouscriptionController(PortailContext context)
+        public StatutSouscriptionController(StatutSouscriptionRepository statutSouscriptionRepository)
         {
-            this.context = context;
+            _statutSouscriptionRepository = statutSouscriptionRepository;
         }
 
         // GET: api/StatutSouscription
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StatutSouscription>>> GetStatutSouscriptions()
+        public ActionResult<IEnumerable<StatutSouscription>> GetStatutSouscriptions()
         {
-            return this.context.StatutSouscriptions.ToList();
+            var statutSouscriptions = _statutSouscriptionRepository.GetAllStatutSouscriptions();
+            return Ok(statutSouscriptions);
         }
 
         // GET: api/StatutSouscription/{id}
         [HttpGet("{id}")]
         public ActionResult<StatutSouscription> GetStatutSouscription(int id)
         {
-            var statutSouscription = this.context.StatutSouscriptions.Find(id);
-
-
+            var statutSouscription = _statutSouscriptionRepository.GetStatutSouscriptionById(id);
 
             if (statutSouscription == null)
             {
                 return NotFound();
             }
 
-            return statutSouscription;
+            return Ok(statutSouscription);
         }
 
         // POST: api/StatutSouscription
         [HttpPost]
         public ActionResult<StatutSouscription> CreateStatutSouscription(StatutSouscription statutSouscription)
         {
-            this.context.StatutSouscriptions.Add(statutSouscription);
-            this.context.SaveChanges();
+            _statutSouscriptionRepository.CreateStatutSouscription(statutSouscription);
 
             return CreatedAtAction(nameof(GetStatutSouscription), new { id = statutSouscription.IdStatutSouscription }, statutSouscription);
         }
@@ -57,8 +55,7 @@ namespace Lapostemobile_projetrest.Controllers
                 return BadRequest();
             }
 
-            this.context.Entry(statutSouscription).State = EntityState.Modified;
-            this.context.SaveChanges();
+            _statutSouscriptionRepository.UpdateStatutSouscription(statutSouscription);
 
             return Ok();
         }
@@ -67,19 +64,15 @@ namespace Lapostemobile_projetrest.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteStatutSouscription(int id)
         {
-            var statutSouscription = this.context.StatutSouscriptions.Find(id);
+            var statutSouscription = _statutSouscriptionRepository.GetStatutSouscriptionById(id);
             if (statutSouscription == null)
             {
                 return NotFound();
             }
 
-            this.context.StatutSouscriptions.Remove(statutSouscription);
-            this.context.SaveChanges();
+            _statutSouscriptionRepository.DeleteStatutSouscription(statutSouscription);
 
             return Ok();
-            ;
         }
-
     }
 }
-

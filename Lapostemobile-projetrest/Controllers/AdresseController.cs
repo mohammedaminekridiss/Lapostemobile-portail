@@ -1,6 +1,9 @@
 ﻿using Lapostemobile_portail.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Lapostemobile_projetrest.Repositories;
 
 namespace Lapostemobile_projetrest.Controllers
 {
@@ -8,27 +11,26 @@ namespace Lapostemobile_projetrest.Controllers
     [ApiController]
     public class AdresseController : Controller
     {
-        private readonly PortailContext context;
+        private readonly AdresseRepository _adresseRepository;
 
-        public AdresseController(PortailContext context)
+        public AdresseController(AdresseRepository adresseRepository)
         {
-            this.context = context;
+            _adresseRepository = adresseRepository;
         }
 
         // GET: api/Adresse
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Adresse>>> GetAdresse()
+        public ActionResult<IEnumerable<Adresse>> GetAdresse()
         {
-            return this.context.Adresses.ToList();
+            var adresses = _adresseRepository.GetAll();
+            return Ok(adresses);
         }
 
         // GET: api/Adresse/{id}
         [HttpGet("{id}")]
         public ActionResult<Adresse> GetAdresse(int id)
         {
-            var adresse = this.context.Adresses.Find(id);
-
-
+            var adresse = _adresseRepository.GetById(id);
 
             if (adresse == null)
             {
@@ -42,8 +44,7 @@ namespace Lapostemobile_projetrest.Controllers
         [HttpPost]
         public ActionResult<Adresse> CreateAdresse(Adresse adresse)
         {
-            this.context.Adresses.Add(adresse);
-            this.context.SaveChanges();
+            _adresseRepository.Add(adresse);
 
             return CreatedAtAction(nameof(GetAdresse), new { id = adresse.IdAdresse }, adresse);
         }
@@ -57,8 +58,7 @@ namespace Lapostemobile_projetrest.Controllers
                 return BadRequest();
             }
 
-            this.context.Entry(adresse).State = EntityState.Modified;
-            this.context.SaveChanges();
+            _adresseRepository.Update(adresse);
 
             return Ok();
         }
@@ -67,17 +67,16 @@ namespace Lapostemobile_projetrest.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteAdresse(int id)
         {
-            var adresse = this.context.Adresses.Find(id);
+            var adresse = _adresseRepository.GetById(id);
             if (adresse == null)
             {
                 return NotFound();
             }
 
-            this.context.Adresses.Remove(adresse);
-            this.context.SaveChanges();
+            _adresseRepository.Delete(id);
 
             return Ok();
-            ;
+
         }
     }
 }

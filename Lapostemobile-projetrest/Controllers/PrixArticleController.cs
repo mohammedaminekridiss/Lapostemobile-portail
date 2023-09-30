@@ -1,76 +1,55 @@
-﻿using Lapostemobile_portail.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Lapostemobile_portail.Models;
+using Lapostemobile_projetrest.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lapostemobile_projetrest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PrixArticleController : Controller
+    public class PrixArticleController : ControllerBase
     {
+        private readonly PrixArticleRepository _prixArticleRepository;
 
-        private readonly PortailContext context;
-
-        public PrixArticleController(PortailContext context)
+        public PrixArticleController(PrixArticleRepository prixArticleRepository)
         {
-            this.context = context;
+            _prixArticleRepository = prixArticleRepository;
         }
 
         [HttpGet("{idEngagement}")]
         public async Task<ActionResult<IEnumerable<PrixArticle>>> GetPrixArticles(int idEngagement)
         {
-            // Utilisez l'ID de l'engagement pour filtrer les PrixArticles
-            var prixArticles = await this.context.PrixArticles
-                .Where(pa => pa.IdOffreEngagement == idEngagement)
-                .ToListAsync();
-
-            return prixArticles;
+            var prixArticles = await _prixArticleRepository.GetPrixArticlesByEngagement(idEngagement);
+            return Ok(prixArticles);
         }
+
         [HttpGet("GetPrixArticlesByIdOffreAndArticle/{idOffre}/{idArticle}")]
         public async Task<ActionResult<IEnumerable<PrixArticle>>> GetPrixArticlesByIdOffreAndArticle(int idOffre, int idArticle)
         {
-            try
-            {
-                // Utilisez l'ID de l'offre et l'ID de l'article pour filtrer les PrixArticles
-                var prixArticles = await this.context.PrixArticles
-                    .Where(pa => pa.IdOffreEngagement == idOffre && pa.IdArticle == idArticle)
-                    .ToListAsync();
+            var prixArticles = await _prixArticleRepository.GetPrixArticlesByIdOffreAndArticle(idOffre, idArticle);
 
-                if (prixArticles == null || prixArticles.Count == 0)
-                {
-                    return NotFound(); // Renvoyer une réponse NotFound si aucun prix d'article n'est trouvé
-                }
-
-                return Ok(prixArticles); // Renvoyer les prix d'articles trouvés en réponse
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Une erreur interne du serveur s'est produite : {ex.Message}");
-            }
-        }
-
-
-
-
-
-
-        // DELETE: api/PrixArticle/{id}
-        [HttpDelete("{id}")]
-        public IActionResult DeletePrixArticle(int id)
-        {
-            var prixarticle = this.context.PrixArticles.Find(id);
-            if (prixarticle == null)
+            if (prixArticles == null || !prixArticles.Any())
             {
                 return NotFound();
             }
 
-            this.context.PrixArticles.Remove(prixarticle);
-            this.context.SaveChanges();
-
-            return Ok();
-            ;
+            return Ok(prixArticles);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePrixArticle(int id)
+        {
+            var success = await _prixArticleRepository.DeletePrixArticle(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
     }
 }
-

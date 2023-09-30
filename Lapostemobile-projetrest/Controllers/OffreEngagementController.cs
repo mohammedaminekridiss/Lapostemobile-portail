@@ -1,84 +1,60 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Lapostemobile_portail.Models;
+﻿using Lapostemobile_portail.Models;
+using Lapostemobile_projetrest.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Crud.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class OffreEngagementController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OffreEngagementController : ControllerBase
+    private readonly OffreEngagementRepository _offreEngagementRepository;
+
+    public OffreEngagementController(OffreEngagementRepository offreEngagementRepository)
     {
-        private readonly PortailContext context;
+        _offreEngagementRepository = offreEngagementRepository;
+    }
 
-        public OffreEngagementController(PortailContext context)
+    [HttpGet]
+    public ActionResult<IEnumerable<OffreEngagement>> GetOffreEngagements()
+    {
+        var offreEngagements = _offreEngagementRepository.GetAllOffreEngagements();
+        return Ok(offreEngagements);
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<OffreEngagement> GetOffreEngagement(int id)
+    {
+        var offreEngagement = _offreEngagementRepository.GetOffreEngagementById(id);
+        if (offreEngagement == null)
         {
-            this.context = context;
+            return NotFound();
         }
 
-        // GET: api/OffreEngagement
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OffreEngagement>>> GetOffreEngagements()
+        return Ok(offreEngagement);
+    }
+
+    [HttpPost]
+    public ActionResult<OffreEngagement> CreateOffreEngagement(OffreEngagement offreEngagement)
+    {
+        _offreEngagementRepository.AddOffreEngagement(offreEngagement);
+        return CreatedAtAction(nameof(GetOffreEngagement), new { id = offreEngagement.IdOffreEngagement }, offreEngagement);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateOffreEngagement(int id, OffreEngagement offreEngagement)
+    {
+        if (id != offreEngagement.IdOffreEngagement)
         {
-            return this.context.OffreEngagements.ToList();
+            return BadRequest();
         }
 
-        // GET: api/OffreEngagement/{id}
-        [HttpGet("{id}")]
-        public ActionResult<OffreEngagement> GetOffreEngagement(int id)
-        {
-            var offreEngagement = this.context.OffreEngagements.Find(id);
+        _offreEngagementRepository.UpdateOffreEngagement(offreEngagement);
+        return Ok();
+    }
 
-
-
-            if (offreEngagement == null)
-            {
-                return NotFound();
-            }
-
-            return offreEngagement;
-        }
-
-        // POST: api/OffreEngagement
-        [HttpPost]
-        public ActionResult<OffreEngagement> CreateOffreEngagement(OffreEngagement offreEngagement)
-        {
-            this.context.OffreEngagements.Add(offreEngagement);
-            this.context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetOffreEngagement), new { id = offreEngagement.IdOffreEngagement }, offreEngagement);
-        }
-
-        // PUT: api/OffreEngagement/{id}
-        [HttpPut("{id}")]
-        public IActionResult UpdateOffreEngagement(int id, OffreEngagement offreEngagement)
-        {
-            if (id != offreEngagement.IdOffreEngagement)
-            {
-                return BadRequest();
-            }
-
-            this.context.Entry(offreEngagement).State = EntityState.Modified;
-            this.context.SaveChanges();
-
-            return Ok();
-        }
-
-        // DELETE: api/OffreEngagement/{id}
-        [HttpDelete("{id}")]
-        public IActionResult DeleteOffreEngagement(int id)
-        {
-            var offreEngagement = this.context.OffreEngagements.Find(id);
-            if (offreEngagement == null)
-            {
-                return NotFound();
-            }
-
-            this.context.OffreEngagements.Remove(offreEngagement);
-            this.context.SaveChanges();
-
-            return Ok();
-            ;
-        }
-
+    [HttpDelete("{id}")]
+    public IActionResult DeleteOffreEngagement(int id)
+    {
+        _offreEngagementRepository.DeleteOffreEngagement(id);
+        return Ok();
     }
 }

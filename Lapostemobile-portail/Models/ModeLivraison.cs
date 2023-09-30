@@ -8,6 +8,6 @@ public partial class ModeLivraison
     public int IdModeLivraison { get; set; }
 
     public string LibelleModeLivraison { get; set; } = null!;
-    public int PrixLivraison { get; set; }
 
+    public int PrixLivraison { get; set; }
 }

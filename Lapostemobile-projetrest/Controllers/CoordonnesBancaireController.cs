@@ -1,51 +1,50 @@
 ﻿using Lapostemobile_portail.Models;
+using Lapostemobile_projetrest.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lapostemobile_projetrest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoordonnesBancaireController : Controller
+    public class CoordonnesBancaireController : ControllerBase
     {
-        private readonly PortailContext context;
+        private readonly CoordonneesBancaireRepository _coordonneesBancaireRepository;
 
-        public CoordonnesBancaireController(PortailContext context)
+        public CoordonnesBancaireController(CoordonneesBancaireRepository coordonneesBancaireRepository)
         {
-            this.context = context;
+            _coordonneesBancaireRepository = coordonneesBancaireRepository;
         }
 
         // GET: api/CoordonnesBancaire
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CoordonneesBancaire>>> GetCoordonnesBancaires()
+        public ActionResult<IEnumerable<CoordonneesBancaire>> GetCoordonnesBancaires()
         {
-            return this.context.CoordonneesBancaires.ToList();
+            var coordonnees = _coordonneesBancaireRepository.GetAllCoordonneesBancaires();
+            return Ok(coordonnees);
         }
 
         // GET: api/CoordonnesBancaire/{id}
         [HttpGet("{id}")]
-        public ActionResult<CoordonneesBancaire> GetCoordonnesBancaire(int id)
+        public ActionResult<CoordonneesBancaire> GetCoordonneesBancaire(int id)
         {
-            var coordonneesBancaire = this.context.CoordonneesBancaires.Find(id);
-
-
-
+            var coordonneesBancaire = _coordonneesBancaireRepository.GetCoordonneesBancaireById(id);
             if (coordonneesBancaire == null)
             {
                 return NotFound();
             }
-
-            return coordonneesBancaire;
+            return Ok(coordonneesBancaire);
         }
 
         // POST: api/CoordonneesBancaire
         [HttpPost]
-        public ActionResult<CoordonneesBancaire> CreateCoordonneesBancaire(CoordonneesBancaire coordonneesBancaire)
+        public IActionResult CreateCoordonneesBancaire(CoordonneesBancaire coordonneesBancaire)
         {
-            this.context.CoordonneesBancaires.Add(coordonneesBancaire);
-            this.context.SaveChanges();
+            _coordonneesBancaireRepository.AddCoordonneesBancaire(coordonneesBancaire);
+            _coordonneesBancaireRepository.SaveChanges();
 
-            return CreatedAtAction(nameof(GetCoordonnesBancaire), new { id = coordonneesBancaire.IdCoordonnees }, coordonneesBancaire);
+            return CreatedAtAction(nameof(GetCoordonneesBancaire), new { id = coordonneesBancaire.IdCoordonnees }, coordonneesBancaire);
         }
 
         // PUT: api/CoordonneesBancaire/{id}
@@ -57,8 +56,8 @@ namespace Lapostemobile_projetrest.Controllers
                 return BadRequest();
             }
 
-            this.context.Entry(coordonneesBancaire).State = EntityState.Modified;
-            this.context.SaveChanges();
+            _coordonneesBancaireRepository.UpdateCoordonneesBancaire(coordonneesBancaire);
+            _coordonneesBancaireRepository.SaveChanges();
 
             return Ok();
         }
@@ -67,19 +66,8 @@ namespace Lapostemobile_projetrest.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteCoordonneesBancaire(int id)
         {
-            var coordonneesBancaire = this.context.CoordonneesBancaires.Find(id);
-            if (coordonneesBancaire == null)
-            {
-                return NotFound();
-            }
+            _coordonneesBancaireRepository.DeleteCoordonneesBancaire(id);
+            _coordonneesBancaireRepository.SaveChanges();
 
-            this.context.CoordonneesBancaires.Remove(coordonneesBancaire);
-            this.context.SaveChanges();
-
-            return Ok();
-            ;
-        }
-
-    }
-}
-
+            return Ok(); }
+    } }

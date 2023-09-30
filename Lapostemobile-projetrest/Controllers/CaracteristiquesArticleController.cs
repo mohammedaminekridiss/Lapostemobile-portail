@@ -1,39 +1,43 @@
 ﻿using Lapostemobile_portail.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Lapostemobile_projetrest.Repositories;
 
 namespace Lapostemobile_projetrest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CaracteristiquesArticleController : Controller
+    public class CaracteristiquesArticleController : ControllerBase
     {
-        private readonly PortailContext context;
+        private readonly CaracteristiquesArticleRepository _caracteristiquesArticleRepository;
 
-        public CaracteristiquesArticleController(PortailContext context)
+        public CaracteristiquesArticleController(CaracteristiquesArticleRepository caracteristiquesArticleRepository)
         {
-            this.context = context;
+            _caracteristiquesArticleRepository = caracteristiquesArticleRepository;
         }
+
 
         // GET: api/CaracteristiquesArticle
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CaracteristiquesArticle>>> GetCaracteristiquesArticles()
+        public ActionResult<IEnumerable<CaracteristiquesArticle>> GetCaracteristiquesArticles()
         {
-            return this.context.CaracteristiquesArticles.ToList();
+            var caracteristiquesArticles = _caracteristiquesArticleRepository.GetAll();
+            return Ok(caracteristiquesArticles);
         }
 
-       
+
         [HttpGet("{idArticle}")]
         public ActionResult<IEnumerable<CaracteristiquesArticle>> GetCaracteristiquesByArticleId(int idArticle)
         {
-            var caracteristiquesArticles = this.context.CaracteristiquesArticles.Where(c => c.IdArticle == idArticle).ToList();
+            var caracteristiquesarticle = _caracteristiquesArticleRepository.GetByArticleId(idArticle);
 
-            if (caracteristiquesArticles == null || caracteristiquesArticles.Count == 0)
+            if (caracteristiquesarticle == null)
             {
                 return NotFound();
             }
 
-            return caracteristiquesArticles; 
+            return caracteristiquesarticle.ToList();
         }
 
 
@@ -41,8 +45,7 @@ namespace Lapostemobile_projetrest.Controllers
         [HttpPost]
         public ActionResult<CaracteristiquesArticle> CreateCaracteristiquesArticle(CaracteristiquesArticle caracteristiquesarticle)
         {
-            this.context.CaracteristiquesArticles.Add(caracteristiquesarticle);
-            this.context.SaveChanges();
+            _caracteristiquesArticleRepository.Add(caracteristiquesarticle);
 
             return CreatedAtAction(nameof(GetCaracteristiquesArticles), new { id = caracteristiquesarticle.IdCaracteristiquesArticles }, caracteristiquesarticle);
         }
@@ -56,24 +59,21 @@ namespace Lapostemobile_projetrest.Controllers
                 return BadRequest();
             }
 
-            this.context.Entry(caracteristiquesarticle).State = EntityState.Modified;
-            this.context.SaveChanges();
+            _caracteristiquesArticleRepository.Update(caracteristiquesarticle);
 
             return Ok();
         }
 
         // DELETE: api/CaracteristiquesArticle/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteCaracteristiquesArticle(int id)
+        public IActionResult DeleteCaracteristiquesArticle(int idArticle)
         {
-            var caracteristiquesarticle = this.context.CaracteristiquesArticles.Find(id);
+            var caracteristiquesarticle = _caracteristiquesArticleRepository.GetByArticleId(idArticle);
             if (caracteristiquesarticle == null)
             {
                 return NotFound();
             }
-
-            this.context.CaracteristiquesArticles.Remove(caracteristiquesarticle);
-            this.context.SaveChanges();
+            _caracteristiquesArticleRepository.Delete(idArticle);
 
             return Ok();
             ;

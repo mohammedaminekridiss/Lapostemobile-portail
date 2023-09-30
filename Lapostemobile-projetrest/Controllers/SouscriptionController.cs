@@ -27,33 +27,33 @@ namespace Lapostemobile_projetrest.Controllers
             var nouvelleSouscription = new Souscription
             {
                 IdStatutSouscription = 1,
-                DateSouscription = DateTime.Now,  
-                DateModification = DateTime.Now, 
+                DateSouscription = DateTime.Now,
+                DateModification = DateTime.Now,
             };
             context.Souscriptions.Add(nouvelleSouscription);
 
-             context.SaveChanges();
-             var offreEngagement = context.OffreEngagements.FirstOrDefault(o => o.IdOffreEngagement == offre);
+            context.SaveChanges();
+            var offreEngagement = context.OffreEngagements.FirstOrDefault(o => o.IdOffreEngagement == offre);
 
             if (offreEngagement == null)
             {
-                 return NotFound("L'offre d'engagement n'a pas été trouvée.");
+                return NotFound("L'offre d'engagement n'a pas été trouvée.");
             }
             var nouvelleLigne = new Ligne
             {
                 IdSouscription = nouvelleSouscription.IdSouscription,
                 IdOffreEngagement = offreEngagement.IdOffreEngagement,
-                PrixVenteOffre = offreEngagement.Prix,
+                PrixVenteOffre = (double)offreEngagement.Prix,
                 DatCre = DateTime.Now,
                 DatMod = DateTime.Now
             };
             context.Lignes.Add(nouvelleLigne);
             context.SaveChanges();
-             var article = context.Articles.FirstOrDefault(a => a.IdArticle == articleid);
+            var article = context.Articles.FirstOrDefault(a => a.IdArticle == articleid);
 
             if (article == null)
             {
-                 return NotFound("L'article n'a pas été trouvé.");
+                return NotFound("L'article n'a pas été trouvé.");
             }
 
             var nouvelleLigneArticle = new LigneArticle
@@ -87,7 +87,7 @@ namespace Lapostemobile_projetrest.Controllers
             return souscription;
         }
 
-     
+
         // DELETE: api/Souscription/{id}
         [HttpDelete("{id}")]
         public IActionResult DeleteSouscription(int id)
@@ -106,7 +106,7 @@ namespace Lapostemobile_projetrest.Controllers
         }
         // PUT: api/Souscription/{id}
         [HttpPut("{id}/{idl}")]
-        public IActionResult ModifierSouscriptionAvecModeLivraison(int id ,int idl)
+        public IActionResult ModifierSouscriptionAvecModeLivraison(int id, int idl)
         {
             var souscription = context.Souscriptions.FirstOrDefault(s => s.IdSouscription == id);
 
@@ -120,20 +120,19 @@ namespace Lapostemobile_projetrest.Controllers
 
             if (modeLivraison == null)
             {
-                return BadRequest("Le mode de livraison spécifié n'existe pas.");  
+                return BadRequest("Le mode de livraison spécifié n'existe pas.");
             }
 
-             souscription.IdModeLivraison = modeLivraison.IdModeLivraison;
+            souscription.IdModeLivraison = modeLivraison.IdModeLivraison;
             souscription.PrixLivraison = modeLivraison.PrixLivraison;
 
-            context.SaveChanges();  
+            context.SaveChanges();
 
-            return Ok(souscription);  
+            return Ok(souscription);
         }
 
     }
 
-    
+
 
 }
-

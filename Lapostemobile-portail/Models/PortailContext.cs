@@ -45,21 +45,21 @@ public partial class PortailContext : DbContext
 
     public virtual DbSet<StatutSouscription> StatutSouscriptions { get; set; }
 
+    public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Portail;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-5SLVIGH\\SQLEXPRESS;Database=Portail;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Adresse>(entity =>
         {
-            entity.HasKey(e => e.IdAdresse).HasName("PK__adresse__05B3E6DC602BFAB6");
+            entity.HasKey(e => e.IdAdresse).HasName("PK__adresse__05B3E6DC201BBB5F");
 
             entity.ToTable("adresse");
 
-            entity.Property(e => e.IdAdresse)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_adresse");
+            entity.Property(e => e.IdAdresse).HasColumnName("id_adresse");
             entity.Property(e => e.AdresseComp)
                 .HasMaxLength(40)
                 .IsUnicode(false)
@@ -130,7 +130,7 @@ public partial class PortailContext : DbContext
 
         modelBuilder.Entity<CaracteristiquesArticle>(entity =>
         {
-            entity.HasKey(e => e.IdCaracteristiquesArticles).HasName("PK__caracter__6F85FECF37650E6D");
+            entity.HasKey(e => e.IdCaracteristiquesArticles).HasName("PK__caracter__6F85FECF542765C0");
 
             entity.ToTable("caracteristiques_articles");
 
@@ -142,7 +142,7 @@ public partial class PortailContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Nom_caracteristiques_articles");
-             entity.Property(e => e.ValeurCarasteristiquesArticles)
+            entity.Property(e => e.ValeurCarasteristiquesArticles)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("valeur_carasteristiques_articles");
@@ -150,18 +150,16 @@ public partial class PortailContext : DbContext
             entity.HasOne(d => d.IdArticleNavigation).WithMany(p => p.CaracteristiquesArticles)
                 .HasForeignKey(d => d.IdArticle)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__caracteri__id_ar__60A75C0F");
+                .HasConstraintName("FK__caracteri__id_ar__6FE99F9F");
         });
 
         modelBuilder.Entity<CoordonneesBancaire>(entity =>
         {
-            entity.HasKey(e => e.IdCoordonnees).HasName("PK__coordonn__AF9E03123FB3761A");
+            entity.HasKey(e => e.IdCoordonnees).HasName("PK__coordonn__AF9E03121B5DB706");
 
             entity.ToTable("coordonnees_bancaires");
 
-            entity.Property(e => e.IdCoordonnees)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_coordonnees");
+            entity.Property(e => e.IdCoordonnees).HasColumnName("id_coordonnees");
             entity.Property(e => e.CodeBic)
                 .HasMaxLength(11)
                 .IsUnicode(false)
@@ -212,13 +210,11 @@ public partial class PortailContext : DbContext
 
         modelBuilder.Entity<Ligne>(entity =>
         {
-            entity.HasKey(e => e.IdLigne).HasName("PK__ligne__E1D60C0C35DB3C13");
+            entity.HasKey(e => e.IdLigne).HasName("PK__ligne__E1D60C0C7A775143");
 
             entity.ToTable("ligne");
 
-            entity.Property(e => e.IdLigne)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_ligne");
+            entity.Property(e => e.IdLigne).HasColumnName("id_ligne");
             entity.Property(e => e.DatCre)
                 .HasDefaultValueSql("(sysdatetime())")
                 .HasColumnType("date")
@@ -229,33 +225,29 @@ public partial class PortailContext : DbContext
             entity.Property(e => e.IdFinancement).HasColumnName("id_financement");
             entity.Property(e => e.IdOffreEngagement).HasColumnName("id_offre_engagement");
             entity.Property(e => e.IdSouscription).HasColumnName("id_souscription");
-            entity.Property(e => e.PrixVenteOffre)
-                .HasColumnType("decimal(18, 0)")
-                .HasColumnName("prix_vente_offre");
+            entity.Property(e => e.PrixVenteOffre).HasColumnName("prix_vente_offre");
 
             entity.HasOne(d => d.IdFinancementNavigation).WithMany(p => p.Lignes)
                 .HasForeignKey(d => d.IdFinancement)
-                .HasConstraintName("FK__ligne__id_financ__5165187F");
+                .HasConstraintName("FK__ligne__id_financ__2CF2ADDF");
 
             entity.HasOne(d => d.IdOffreEngagementNavigation).WithMany(p => p.Lignes)
                 .HasForeignKey(d => d.IdOffreEngagement)
-                .HasConstraintName("FK__ligne__id_offre___52593CB8");
+                .HasConstraintName("FK__ligne__id_offre___2DE6D218");
 
             entity.HasOne(d => d.IdSouscriptionNavigation).WithMany(p => p.Lignes)
                 .HasForeignKey(d => d.IdSouscription)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ligne__id_souscr__534D60F1");
+                .HasConstraintName("FK__ligne__id_souscr__2EDAF651");
         });
 
         modelBuilder.Entity<LigneArticle>(entity =>
         {
-            entity.HasKey(e => e.IdLigneArticle).HasName("PK__ligne_ar__813AC43D1DD68471");
+            entity.HasKey(e => e.IdLigneArticle).HasName("PK__ligne_ar__813AC43D124B4CB6");
 
             entity.ToTable("ligne_article");
 
-            entity.Property(e => e.IdLigneArticle)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_ligne_article");
+            entity.Property(e => e.IdLigneArticle).HasColumnName("id_ligne_article");
             entity.Property(e => e.DatCre)
                 .HasDefaultValueSql("(sysdatetime())")
                 .HasColumnType("date")
@@ -279,18 +271,16 @@ public partial class PortailContext : DbContext
             entity.HasOne(d => d.IdLigneNavigation).WithMany(p => p.LigneArticles)
                 .HasForeignKey(d => d.IdLigne)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ligne_art__id_li__59FA5E80");
+                .HasConstraintName("FK__ligne_art__id_li__32AB8735");
         });
 
         modelBuilder.Entity<LigneOption>(entity =>
         {
-            entity.HasKey(e => e.IdLigneOption).HasName("PK__ligne_op__6498FBB40410619C");
+            entity.HasKey(e => e.IdLigneOption).HasName("PK__ligne_op__6498FBB4033AC961");
 
             entity.ToTable("ligne_option");
 
-            entity.Property(e => e.IdLigneOption)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_ligne_option");
+            entity.Property(e => e.IdLigneOption).HasColumnName("id_ligne_option");
             entity.Property(e => e.DatMod)
                 .HasColumnType("date")
                 .HasColumnName("dat_mod");
@@ -304,16 +294,16 @@ public partial class PortailContext : DbContext
             entity.HasOne(d => d.IdLigneNavigation).WithMany(p => p.LigneOptions)
                 .HasForeignKey(d => d.IdLigne)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ligne_opt__id_li__5CD6CB2B");
+                .HasConstraintName("FK__ligne_opt__id_li__3587F3E0");
 
             entity.HasOne(d => d.IdOptionNavigation).WithMany(p => p.LigneOptions)
                 .HasForeignKey(d => d.IdOption)
-                .HasConstraintName("FK__ligne_opt__id_op__5DCAEF64");
+                .HasConstraintName("FK__ligne_opt__id_op__367C1819");
         });
 
         modelBuilder.Entity<ModeLivraison>(entity =>
         {
-            entity.HasKey(e => e.IdModeLivraison).HasName("PK__mode_liv__C95298B7B962A58E");
+            entity.HasKey(e => e.IdModeLivraison).HasName("PK__mode_liv__C95298B7972ADFF5");
 
             entity.ToTable("mode_livraison");
 
@@ -324,8 +314,7 @@ public partial class PortailContext : DbContext
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasColumnName("libelle_mode_livraison");
-            entity.Property(e => e.PrixLivraison)
-              .HasColumnName("prix_livraison");
+            entity.Property(e => e.PrixLivraison).HasColumnName("prix_livraison");
         });
 
         modelBuilder.Entity<OffreEngagement>(entity =>
@@ -412,13 +401,11 @@ public partial class PortailContext : DbContext
 
         modelBuilder.Entity<Prospect>(entity =>
         {
-            entity.HasKey(e => e.IdProspect).HasName("PK__prospect__6B3AC313077C5DF6");
+            entity.HasKey(e => e.IdProspect).HasName("PK__prospect__6B3AC313648BB801");
 
             entity.ToTable("prospect");
 
-            entity.Property(e => e.IdProspect)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_prospect");
+            entity.Property(e => e.IdProspect).HasColumnName("id_prospect");
             entity.Property(e => e.DatCre)
                 .HasDefaultValueSql("(sysdatetime())")
                 .HasColumnType("date")
@@ -462,20 +449,16 @@ public partial class PortailContext : DbContext
 
             entity.HasOne(d => d.IdCoordonneesBancairesNavigation).WithMany(p => p.Prospects)
                 .HasForeignKey(d => d.IdCoordonneesBancaires)
-                .HasConstraintName("FK__prospect__id_coo__3D5E1FD2");
+                .HasConstraintName("FK__prospect__id_coo__45BE5BA9");
         });
 
         modelBuilder.Entity<Souscription>(entity =>
         {
-            entity.HasKey(e => e.IdSouscription).HasName("PK__souscrip__A5BABA325DC0888D");
+            entity.HasKey(e => e.IdSouscription).HasName("PK__souscrip__A5BABA32E988E1D6");
 
             entity.ToTable("souscription");
-            
-            
-                 entity.Property(e => e.IdSouscription)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_souscription");
 
+            entity.Property(e => e.IdSouscription).HasColumnName("id_souscription");
             entity.Property(e => e.DateModification)
                 .HasColumnType("date")
                 .HasColumnName("date_modification");
@@ -500,12 +483,12 @@ public partial class PortailContext : DbContext
             entity.HasOne(d => d.IdStatutSouscriptionNavigation).WithMany(p => p.Souscriptions)
                 .HasForeignKey(d => d.IdStatutSouscription)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__souscript__id_st__412EB0B6");
+                .HasConstraintName("FK__souscript__id_st__18EBB532");
         });
 
         modelBuilder.Entity<StatutSouscription>(entity =>
         {
-            entity.HasKey(e => e.IdStatutSouscription).HasName("PK__statut_s__DA50E02423CA42C6");
+            entity.HasKey(e => e.IdStatutSouscription).HasName("PK__statut_s__DA50E0249AA68D50");
 
             entity.ToTable("statut_souscription");
 
@@ -519,6 +502,16 @@ public partial class PortailContext : DbContext
                 .HasMaxLength(64)
                 .IsUnicode(false)
                 .HasColumnName("libelle_statut_souscription");
+        });
+
+        modelBuilder.Entity<Utilisateur>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__utilisat__3214EC0767527B57");
+
+            entity.ToTable("utilisateur");
+ 
+            entity.Property(e => e.ReinitialiseTokenExpire).HasColumnType("datetime");
+            entity.Property(e => e.VerificationAt).HasColumnType("datetime");
         });
 
         OnModelCreatingPartial(modelBuilder);

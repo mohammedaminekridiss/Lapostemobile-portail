@@ -3,9 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-portail", "Lapostemobile-portail\Lapostemobile-portail.csproj", "{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-portail", "Lapostemobile-portail\Lapostemobile-portail.csproj", "{B24F10F9-9E2D-4D7D-A4DA-029CC4C9B392}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-projetrest", "Lapostemobile-projetrest\Lapostemobile-projetrest.csproj", "{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-projetrest", "Lapostemobile-projetrest\Lapostemobile-projetrest.csproj", "{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E6CD902-2B34-4322-98A6-F7E7C46FAEEE}"
+	ProjectSection(SolutionItems) = preProject
+		Lapostemobile-projetrest.AssemblyInfo.cs = Lapostemobile-projetrest.AssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Email-SERVICE-APP", "Email-SERVICE-APP\Email-SERVICE-APP.csproj", "{F016E432-F279-43DB-963E-86F7CEAEDB16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,10 @@ Global
 		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48BD9391-B385-4AFE-9CF1-C0B6508F5EC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F016E432-F279-43DB-963E-86F7CEAEDB16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
