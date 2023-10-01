@@ -6,15 +6,15 @@ namespace Lapostemobile_MailService
 {
     public static class MailService
     {
-        public static void sendMail(Prospect p)
+        public static void sendMail(string nom , string prenom , string mail)
         {
             string fromMail = "mohammedamine.kridiss@esprit.tn";
             string fromPassword = "rmvi rpqd zdmm azpg";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
-            message.Subject = $"Salut Mr/Mme {p.Prenom} {p.Nom}";
-            message.To.Add(new MailAddress(p.Email));
+            message.Subject = $"Salut Mr/Mme {prenom} {nom}";
+            message.To.Add(new MailAddress(mail));
             message.Body = "<html> Votre inscription est validée , veuillez continuer à valider les autres étapes pour terminer la souscription  </body></html>";
             message.IsBodyHtml = true;
 

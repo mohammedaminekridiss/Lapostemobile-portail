@@ -29,12 +29,12 @@ namespace Lapostemobile_projetrest.Services
                                      autoDelete: false,
                                      arguments: null);
                 channel.QueueBind(queueName, exchangeName, routingKey, null);
-                var jsonMessage = JsonConvert.SerializeObject(prospect);
+                prospect.IdCoordonneesBancaires = null; 
+                var jsonMessage = JsonConvert.SerializeObject(new { prospect.Email , prospect.Nom , prospect.Prenom });
                 var body = Encoding.UTF8.GetBytes(jsonMessage);
                 channel.BasicPublish(exchange: exchangeName, routingKey: routingKey, basicProperties: null, body: body);
                 Console.WriteLine($"Sent: {prospect}");
-                Console.ReadLine();
-                 
+                  
             }
 
         }

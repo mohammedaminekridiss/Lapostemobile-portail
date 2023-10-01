@@ -36,8 +36,9 @@ using (var channel = connection.CreateModel())
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine("Received message: " + message);
-        
-        MailService.sendMail(JsonConvert.DeserializeObject<Prospect>(message));
+        var data = JsonConvert.DeserializeAnonymousType(message, new { Email = "", Nom = "", Prenom = "" });
+        if(data != null)
+        MailService.sendMail(data.Nom , data.Prenom , data.Email);
         // Add your processing logic here
         channel.BasicAck(ea.DeliveryTag, false);
     };
