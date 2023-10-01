@@ -1,8 +1,7 @@
-using FluentAssertions.Common;
 using Lapostemobile_portail.Models;
 using Lapostemobile_projetrest.Repositories;
+using Lapostemobile_projetrest.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +23,7 @@ builder.Services.AddScoped<ProspectRepository>();
 builder.Services.AddScoped<SouscriptionRepository>();
 builder.Services.AddScoped<StatutSouscriptionRepository>();
 builder.Services.AddDbContext<PortailContext>(options => options.UseSqlServer(connString));
+builder.Services.AddSingleton<MailService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
