@@ -1,11 +1,13 @@
-﻿using RabbitMQ.Client;
+﻿using Lapostemobile_portail.Models;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 using System.Text;
 
 namespace Lapostemobile_projetrest.Services
 {
     public class MailService
     {
-        public void sendMail()
+        public void sendMail(Prospect prospect)
         {
 
             // RabbitMQ connection string
@@ -26,11 +28,11 @@ namespace Lapostemobile_projetrest.Services
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
-                channel.QueueBind(queueName, exchangeName, routingKey, null);               
-                string message = "Hello, RabbitMQ!";
-                var body = Encoding.UTF8.GetBytes(message);
+                channel.QueueBind(queueName, exchangeName, routingKey, null);
+                var jsonMessage = JsonConvert.SerializeObject(prospect);
+                var body = Encoding.UTF8.GetBytes(jsonMessage);
                 channel.BasicPublish(exchange: exchangeName, routingKey: routingKey, basicProperties: null, body: body);
-                Console.WriteLine($"Sent: {message}");
+                Console.WriteLine($"Sent: {prospect}");
                 Console.ReadLine();
                  
             }

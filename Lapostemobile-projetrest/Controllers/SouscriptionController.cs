@@ -10,12 +10,12 @@ namespace Lapostemobile_projetrest.Controllers
     public class SouscriptionController : Controller
     {
         private readonly PortailContext context;
-        private readonly MailService _mailService;
+        
 
-        public SouscriptionController(PortailContext context, MailService mailService)
+        public SouscriptionController(PortailContext context)
         {
             this.context = context;
-            this._mailService = mailService;
+           
         }
 
         // GET: api/Souscription
@@ -71,7 +71,7 @@ namespace Lapostemobile_projetrest.Controllers
             };
             context.LigneArticles.Add(nouvelleLigneArticle);
             context.SaveChanges();
-            _mailService.sendMail();
+            
             return Ok(nouvelleSouscription.IdSouscription);
         }
 

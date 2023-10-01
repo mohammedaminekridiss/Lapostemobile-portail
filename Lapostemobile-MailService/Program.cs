@@ -1,6 +1,11 @@
-﻿using RabbitMQ.Client;
+﻿using Lapostemobile_MailService;
+using Lapostemobile_portail.Models;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+
+
 
 // RabbitMQ connection string
 ConnectionFactory factory = new ConnectionFactory();
@@ -31,7 +36,8 @@ using (var channel = connection.CreateModel())
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine("Received message: " + message);
-
+        
+        MailService.sendMail(JsonConvert.DeserializeObject<Prospect>(message));
         // Add your processing logic here
         channel.BasicAck(ea.DeliveryTag, false);
     };
@@ -44,4 +50,7 @@ using (var channel = connection.CreateModel())
     Console.WriteLine("Waiting for messages. Press [Enter] to exit.");
     Console.ReadLine();
     channel.BasicCancel(consumerTag);
+
+
+
 }

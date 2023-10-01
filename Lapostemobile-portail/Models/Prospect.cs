@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lapostemobile_portail.Models;
 
@@ -31,6 +32,8 @@ public partial class Prospect
 
     public int? IdCoordonneesBancaires { get; set; }
 
+    [Required(ErrorMessage = "L'adresse e-mail est requise.")]
+    [EmailAddress(ErrorMessage = "L'adresse e-mail n'est pas valide.")]
     public string? Email { get; set; } = string.Empty;
 
     public string? NumeroFixe { get; set; }
