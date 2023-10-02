@@ -11,6 +11,7 @@ namespace Lapostemobile_projetrest.Services
         {
 
             // RabbitMQ connection string
+            
             ConnectionFactory factory = new ConnectionFactory();
             factory.Uri = new  Uri("amqp://guest:guest@localhost:5672");
             factory.ClientProvidedName = "sender app";

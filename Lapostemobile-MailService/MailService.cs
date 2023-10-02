@@ -13,7 +13,7 @@ namespace Lapostemobile_MailService
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
-            message.Subject = $"Salut Mr/Mme {prenom} {nom}";
+            message.Subject = $"Inscription Mr/Mme {prenom} {nom}";
             message.To.Add(new MailAddress(mail));
             message.Body = "<html> Votre inscription est validée , veuillez continuer à valider les autres étapes pour terminer la souscription  </body></html>";
             message.IsBodyHtml = true;
