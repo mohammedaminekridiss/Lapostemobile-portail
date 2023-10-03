@@ -13,10 +13,63 @@ namespace Lapostemobile_MailService
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
-            message.Subject = $"Inscription Mr/Mme {prenom} {nom}";
+            message.Subject = $"Validation d'inscription de Mr/Mme {nom} {prenom}";
             message.To.Add(new MailAddress(mail));
-            message.Body = "<html> Votre inscription est validée , veuillez continuer à valider les autres étapes pour terminer la souscription  </body></html>";
+
+            string body = @"
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #007acc;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .message {
+            padding: 20px 0;
+        }
+        .signature {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>Validation d'inscription</h1>
+        </div>
+        <div class='message'>
+            <p>Bonjour,</p>
+            <p>Nous avons le plaisir de vous informer que votre inscription a été validée avec succès. Nous vous remercions de votre confiance en notre service.</p>
+            <p>Veuillez maintenant poursuivre le processus de souscription en suivant les étapes restantes afin de finaliser votre inscription.</p>
+            <p>Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter. Nous sommes là pour vous aider.</p>
+        </div>
+        <div class='signature'>
+            <p>Cordialement,</p>
+            <p>[La Poste-mobile]</p>
+        </div>
+    </div>
+</body>
+</html>
+";
+
+            message.Body = body;
             message.IsBodyHtml = true;
+
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
