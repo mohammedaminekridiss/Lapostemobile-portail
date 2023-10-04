@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-MailService", "Lapostemobile-MailService\Lapostemobile-MailService.csproj", "{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-CommandeSAP", "Lapostemobile-CommandeSAP\Lapostemobile-CommandeSAP.csproj", "{C9119250-4031-411B-B6A3-2F1CCFE9C66A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-Contrat", "Lapostemobile-Contrat\Lapostemobile-Contrat.csproj", "{E83A93B8-F3ED-4166-A116-F9A65519A244}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9119250-4031-411B-B6A3-2F1CCFE9C66A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9119250-4031-411B-B6A3-2F1CCFE9C66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9119250-4031-411B-B6A3-2F1CCFE9C66A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9119250-4031-411B-B6A3-2F1CCFE9C66A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
