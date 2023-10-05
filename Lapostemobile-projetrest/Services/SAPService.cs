@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Lapostemobile_projetrest.Services
 {
-    public class MailService
+    public class SAPService
     {
-        public void sendMail(Prospect prospect)
+        public void sendSAP()
         {
 
             // RabbitMQ connection string
@@ -19,11 +19,11 @@ namespace Lapostemobile_projetrest.Services
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                
+                  
                 // Declare the queue to consume messages from
-                string queueName = "mail-queue"; // Replace with the actual queue name
-                string exchangeName = "laposteExchange";
-                string routingKey = "mail-routing-key";
+                string queueName = "sap-queue"; // Replace with the actual queue name
+                string exchangeName = "LaposteExchange";
+                string routingKey = "sap-routing-key";
 
                 channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
                 channel.QueueDeclare(queue: queueName,
@@ -32,11 +32,9 @@ namespace Lapostemobile_projetrest.Services
                                      autoDelete: false,
                                      arguments: null);
                 channel.QueueBind(queueName, exchangeName, routingKey, null);
-                prospect.IdCoordonneesBancaires = null;
-                var jsonMessage = JsonConvert.SerializeObject(new { prospect.Email, prospect.Nom, prospect.Prenom });
-                var body = Encoding.UTF8.GetBytes(jsonMessage);
+                var body = Encoding.UTF8.GetBytes("hello SAP");
                 channel.BasicPublish(exchange: exchangeName, routingKey: routingKey, basicProperties: null, body: body);
-                Console.WriteLine($"Sent: {prospect}");
+                Console.WriteLine($"Sent: SAP");
 
             }
 

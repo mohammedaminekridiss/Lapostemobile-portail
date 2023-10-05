@@ -1,5 +1,4 @@
 ﻿using Lapostemobile_MailService;
-using Lapostemobile_portail.Models;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -16,7 +15,7 @@ using (var channel = connection.CreateModel())
 {
     // Declare the queue to consume messages from
     string queueName = "mail-queue"; // Replace with the actual queue name
-    string exchangeName = "MailExchange";
+    string exchangeName = "LaposteExchange";
     string routingKey = "mail-routing-key";
 
     channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);

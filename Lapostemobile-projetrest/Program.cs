@@ -24,6 +24,8 @@ builder.Services.AddScoped<SouscriptionRepository>();
 builder.Services.AddScoped<StatutSouscriptionRepository>();
 builder.Services.AddDbContext<PortailContext>(options => options.UseSqlServer(connString));
 builder.Services.AddSingleton<MailService>();
+builder.Services.AddSingleton<SAPService>();
+builder.Services.AddSingleton<ContratService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
