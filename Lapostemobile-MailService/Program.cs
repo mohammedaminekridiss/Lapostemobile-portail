@@ -1,52 +1,35 @@
-﻿using Lapostemobile_MailService;
+﻿using LaPosteMobile_CommonConfiguration;
+using Lapostemobile_MailService;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
 
-
-// RabbitMQ connection string
 ConnectionFactory factory = new ConnectionFactory();
-factory.Uri = new Uri("amqp://guest:guest@localhost:5672");
-factory.ClientProvidedName = "sender app";
+factory.Uri = new Uri(AppConfig.RabbitMQUri);
+factory.ClientProvidedName = AppConfig.ClientProvidedName;
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
-    // Declare the queue to consume messages from
-    string queueName = "mail-queue"; // Replace with the actual queue name
-    string exchangeName = "LaposteExchange";
-    string routingKey = "mail-routing-key";
-
-    channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
-    channel.QueueDeclare(queue: queueName,
-                         durable: false,
-                         exclusive: false,
-                         autoDelete: false,
-                         arguments: null);
-    channel.QueueBind(queueName, exchangeName, routingKey, null);
+    channel.ExchangeDeclare(AppConfig.ExchangeName, ExchangeType.Direct);
+    channel.QueueDeclare(queue: AppConfig.MailQueue, durable: false, exclusive: false, autoDelete: false, arguments: null);
+    channel.QueueBind(AppConfig.MailQueue, AppConfig.ExchangeName, AppConfig.MailroutingKey, null);
     channel.BasicQos(0, 1, false);
 
-    // Set up a consumer to receive messages
     var consumer = new EventingBasicConsumer(channel);
-
     consumer.Received += (model, ea) =>
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine("Received message: " + message);
         var data = JsonConvert.DeserializeAnonymousType(message, new { Email = "", Nom = "", Prenom = "" });
-        if(data != null)
-        MailService.sendMail(data.Nom , data.Prenom , data.Email);
-        // Add your processing logic here
+        if (data != null)
+            MailService.sendMail(data.Nom, data.Prenom, data.Email);
         channel.BasicAck(ea.DeliveryTag, false);
     };
 
-    // Start consuming messages
-    string consumerTag = channel.BasicConsume(queue: queueName,
-                         false, // Set to true if you want messages to be automatically acknowledged
-                         consumer: consumer);
-
+    string consumerTag = channel.BasicConsume(queue: AppConfig.MailQueue, false, consumer: consumer);
     Console.WriteLine("Waiting for messages. Press [Enter] to exit.");
     Console.ReadLine();
     channel.BasicCancel(consumerTag);

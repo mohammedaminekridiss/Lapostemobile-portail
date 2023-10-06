@@ -13,10 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-MailService", "Lapostemobile-MailService\Lapostemobile-MailService.csproj", "{385B8A73-0A97-4B6B-A4BF-1A49CCF3BB99}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7B17EBCB-7D44-4307-8800-4225268BC0A7} = {7B17EBCB-7D44-4307-8800-4225268BC0A7}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-CommandeSAP", "Lapostemobile-CommandeSAP\Lapostemobile-CommandeSAP.csproj", "{C9119250-4031-411B-B6A3-2F1CCFE9C66A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-CommandeSAP", "Lapostemobile-CommandeSAP\Lapostemobile-CommandeSAP.csproj", "{C9119250-4031-411B-B6A3-2F1CCFE9C66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lapostemobile-Contrat", "Lapostemobile-Contrat\Lapostemobile-Contrat.csproj", "{E83A93B8-F3ED-4166-A116-F9A65519A244}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapostemobile-Contrat", "Lapostemobile-Contrat\Lapostemobile-Contrat.csproj", "{E83A93B8-F3ED-4166-A116-F9A65519A244}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaPosteMobile-CommonConfiguration", "LaPosteMobile-CommonConfiguration\LaPosteMobile-CommonConfiguration.csproj", "{7B17EBCB-7D44-4307-8800-4225268BC0A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +49,10 @@ Global
 		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E83A93B8-F3ED-4166-A116-F9A65519A244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B17EBCB-7D44-4307-8800-4225268BC0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B17EBCB-7D44-4307-8800-4225268BC0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B17EBCB-7D44-4307-8800-4225268BC0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B17EBCB-7D44-4307-8800-4225268BC0A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
