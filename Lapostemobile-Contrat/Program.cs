@@ -1,5 +1,6 @@
 ﻿
 using LaPosteMobile_CommonConfiguration;
+using Lapostemobile_Contrat;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -24,6 +25,7 @@ using (var channel = connection.CreateModel())
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine("Confirmation Received message : " + new DateTime());
+        ContratPDFService.GeneratePDFfromhtml();
         confirmation = true;
         channel.BasicAck(ea.DeliveryTag, false);
     };
