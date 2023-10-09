@@ -9,10 +9,12 @@
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="IronPdf" Version="2023.10.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\LaPosteMobile-CommonConfiguration\LaPosteMobile-CommonConfiguration.csproj" />
+	  <ProjectReference Include="..\Lapostemobile-portail\Lapostemobile-portail.csproj" />
 	</ItemGroup>
 
 </Project>

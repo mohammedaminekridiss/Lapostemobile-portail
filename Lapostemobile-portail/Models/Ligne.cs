@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lapostemobile_portail.Models;
 
@@ -20,8 +21,7 @@ public partial class Ligne
     public int? IdFinancement { get; set; }
 
     public virtual Financement? IdFinancementNavigation { get; set; }
-
-    public virtual OffreEngagement? IdOffreEngagementNavigation { get; set; }
+     public virtual OffreEngagement? IdOffreEngagementNavigation { get; set; }
 
     public virtual Souscription IdSouscriptionNavigation { get; set; } = null!;
 

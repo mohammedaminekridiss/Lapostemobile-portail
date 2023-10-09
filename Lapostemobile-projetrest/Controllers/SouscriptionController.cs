@@ -1,8 +1,8 @@
-﻿using Lapostemobile_portail.Models;
+﻿using Lapostemobile_Contrat;
+using Lapostemobile_portail.Models;
 using Lapostemobile_projetrest.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
+ 
 namespace Lapostemobile_projetrest.Controllers
 {
     [Route("api/[controller]")]
@@ -10,17 +10,19 @@ namespace Lapostemobile_projetrest.Controllers
     public class SouscriptionController : Controller
     {
         private readonly PortailContext context;
-        
+        private readonly ContratService _contratService;
 
-        public SouscriptionController(PortailContext context)
+
+        public SouscriptionController(PortailContext context, ContratService contratService)
         {
             this.context = context;
-           
+            this._contratService = contratService;
+
         }
 
         // GET: api/Souscription
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Souscription>>> GetSouscriptions()
+        public ActionResult<IEnumerable<Souscription>> GetSouscriptions()
         {
             return this.context.Souscriptions.ToList();
         }
@@ -71,10 +73,12 @@ namespace Lapostemobile_projetrest.Controllers
             };
             context.LigneArticles.Add(nouvelleLigneArticle);
             context.SaveChanges();
-            
+            _contratService.sendContrat(nouvelleSouscription,nouvelleLigneArticle,nouvelleLigne);
+
+
             return Ok(nouvelleSouscription.IdSouscription);
         }
-
+ 
         // GET: api/Souscription/{id}
         [HttpGet("{id}")]
         public ActionResult<Souscription> GetSouscription(int id)

@@ -1,6 +1,7 @@
 ﻿
 using LaPosteMobile_CommonConfiguration;
 using Lapostemobile_Contrat;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -10,7 +11,7 @@ factory.Uri = new Uri(AppConfig.RabbitMQUri);
 factory.ClientProvidedName = AppConfig.ClientProvidedName;
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
-{ 
+{
     bool confirmation = false;
     channel.ExchangeDeclare(AppConfig.ExchangeName, ExchangeType.Direct);
     channel.QueueDeclare(queue: AppConfig.SapConfirmationQueue, durable: false, exclusive: false, autoDelete: false, arguments: null);
@@ -20,13 +21,13 @@ using (var channel = connection.CreateModel())
     channel.BasicQos(0, 1, false);
 
     var consumerConfirmation = new EventingBasicConsumer(channel);
+   
     consumerConfirmation.Received += (model, ea) =>
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine("Confirmation Received message : " + new DateTime());
-        ContratPDFService.GeneratePDFfromhtml();
-        confirmation = true;
+        confirmation = true;       
         channel.BasicAck(ea.DeliveryTag, false);
     };
 
@@ -35,9 +36,17 @@ using (var channel = connection.CreateModel())
     var consumer = new EventingBasicConsumer(channel);
     consumer.Received += (model, ea) =>
     {
+         
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine("Received message Contrat fron SAP: " + message + new DateTime());
+        var data = JsonConvert.DeserializeAnonymousType(message, new { IdSouscription = 0, IdArticle = 0, IdOffreEngagement = 0 });
+
+        if (data != null)
+        {
+            ContratPDFService.GeneratePDFfromhtml(data.IdSouscription, data.IdArticle, data.IdOffreEngagement);
+        }
+        Console.WriteLine("Received message Contrat : " + message);
+
         confirmation = false;
         channel.BasicAck(ea.DeliveryTag, false);
     };

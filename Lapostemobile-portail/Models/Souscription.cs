@@ -24,4 +24,9 @@ public partial class Souscription
     public virtual StatutSouscription IdStatutSouscriptionNavigation { get; set; } = null!;
 
     public virtual ICollection<Ligne> Lignes { get; set; } = new List<Ligne>();
+
+    public static object FirstOrDefault(Func<object, bool> value)
+    {
+        throw new NotImplementedException();
+    }
 }

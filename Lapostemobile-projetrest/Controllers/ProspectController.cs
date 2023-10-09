@@ -13,14 +13,12 @@ namespace Lapostemobile_projetrest.Controllers
         private readonly PortailContext context;
         private readonly MailService _mailService;
         private readonly SAPService _sapService;
-        private readonly ContratService _contratService;
 
-        public ProspectController(PortailContext context, MailService mailService, SAPService sAPService , ContratService contratService)
+        public ProspectController(PortailContext context, MailService mailService, SAPService sAPService )
         {
             this.context = context;
             this._mailService = mailService;
             this._sapService = sAPService;
-            this._contratService = contratService;
         }
         // GET: api/Prospect/{id}
         [HttpGet("{id}")]
@@ -62,7 +60,6 @@ namespace Lapostemobile_projetrest.Controllers
             this.context.Prospects.Add(prospect);
             this.context.SaveChanges();
             _mailService.sendMail(prospect);
-            _contratService.sendContrat();
             _sapService.sendSAP();
             return CreatedAtAction(nameof(GetProspect), new { id = prospect.IdProspect }, prospect);
         }

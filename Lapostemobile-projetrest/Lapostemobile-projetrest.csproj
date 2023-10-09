@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LaPosteMobile-CommonConfiguration\LaPosteMobile-CommonConfiguration.csproj" />
+    <ProjectReference Include="..\Lapostemobile-Contrat\Lapostemobile-Contrat.csproj" />
     <ProjectReference Include="..\Lapostemobile-portail\Lapostemobile-portail.csproj" />
   </ItemGroup>
 
