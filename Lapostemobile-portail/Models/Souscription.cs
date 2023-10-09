@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Lapostemobile_portail.Models;
+﻿namespace Lapostemobile_portail.Models;
 
 public partial class Souscription
 {
@@ -25,8 +22,5 @@ public partial class Souscription
 
     public virtual ICollection<Ligne> Lignes { get; set; } = new List<Ligne>();
 
-    public static object FirstOrDefault(Func<object, bool> value)
-    {
-        throw new NotImplementedException();
-    }
+ 
 }

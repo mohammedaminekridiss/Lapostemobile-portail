@@ -1,7 +1,5 @@
 ﻿using Lapostemobile_portail.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mail;
-using System.Net;
 using Lapostemobile_projetrest.Services;
 
 namespace Lapostemobile_projetrest.Controllers
@@ -61,6 +59,7 @@ namespace Lapostemobile_projetrest.Controllers
             this.context.SaveChanges();
             _mailService.sendMail(prospect);
             _sapService.sendSAP();
+ 
             return CreatedAtAction(nameof(GetProspect), new { id = prospect.IdProspect }, prospect);
         }
        
