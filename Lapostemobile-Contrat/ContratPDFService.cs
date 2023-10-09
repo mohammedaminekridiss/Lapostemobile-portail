@@ -16,29 +16,40 @@ namespace Lapostemobile_Contrat
                 if (article != null && carac != null && offre != null && prix != null)
                 {
                     var render = new ChromePdfRenderer();
-                    var html = $"<html><head><title>Contrat de Souscription {IdSouscription}</title></head><body>" +
-              $"<h1>Contrat de Souscription {IdSouscription}</h1>" +
-              $"<table>" +
-              $"<tr><td rowspan=\"3\"><img src=\"C:\\Users\\med kridis\\Desktop\\Angular\\Projet-LaposteMobile-Front\\src\\{article.FichierImage}\" alt=\"{article.LibelleArticle}\"></td>" +
-              $"<td>Nom de l'Offre:</td><td>{offre.LibelleMarketing}</td></tr>" +
-              $"<tr><td>Prix de l'Offre:</td><td>{offre.Prix} €</td></tr>" +
-              $"<tr><td>Article:</td><td>{article.LibelleArticle}</td></tr>" +
-              "</table>" +
-              "<h2>Prix de l'article Selon l'Offre:</h2><ul>";
-
-                    foreach (var prixItem in prix)
-                    {
-                        html += $"<li>{prixItem.PrixArticle1} €</li>";
-                    }
-
-                    html += "</ul><h2>Caractéristiques articles:</h2><table>";
+                    var html = $"<html><head><title>Contrat de Souscription {IdSouscription}</title><style>" +
+         "body { font-family: Arial, sans-serif ; margin: 0; padding: 0; }" +
+         ".page { margin: 20px; border: 2px solid #000; background-color: #ffffff; }" +
+         ".container { padding: 20px; display: flex; }" +
+         ".container div { flex: 1; padding: 10px; }" +
+         "h1 { font-size: 24px; color: #333; text-align: center; }" +
+         "h2 { font-size: 20px; color: #444; }" +
+         "p { font-size: 16px; color: #666; }" +
+         ".image-container { float: left; width: 30%; }" +
+         ".image-container img { max-width: 100%; }" +
+         ".libelle-article { font-style: italic; text-decoration: underline; }" +
+         ".caracteristiques { clear: both; }" +
+         "</style></head><body>" +
+         $"<h1>Contrat de Souscription {IdSouscription}</h1>" +
+         $"<div class=\"page\">" +
+         $"<div class=\"container\">" +
+         $"<div class=\"image-container\">" +
+         $"<img src=\"C:\\Users\\med kridis\\Desktop\\Angular\\Projet-LaposteMobile-Front\\src\\{article.FichierImage}\" alt=\"{article.LibelleArticle}\">" +
+         $"<p class=\"libelle-article\">{article.LibelleArticle}</p>" +
+         "</div>" +
+         "<div>" +
+         "<h2>Caractéristiques articles</h2><ul>";
 
                     foreach (var caracItem in carac)
                     {
-                        html += $"<tr><td>{caracItem.NomCaracteristiquesArticles}</td><td>{caracItem.ValeurCarasteristiquesArticles}</td></tr>";
+                        html += $"<li>{caracItem.NomCaracteristiquesArticles}: {caracItem.ValeurCarasteristiquesArticles}</li>";
                     }
 
-                    html += "</table></body></html>";
+                    html += "</ul>" +
+                        $"<p>Nom de l'Offre : <span class=\"libelle-offre\">{offre.LibelleMarketing}</span></p>" +
+                        $"<p>Prix de l'Offre : {offre.Prix} €</p>" +
+                        $"<p>Prix de l'article : {prix[0].PrixArticle1} €</p>" +
+                        "</div></div></div></body></html>";
+
 
                     var pdf = render.RenderHtmlAsPdf(html);
                     pdf.SaveAs(@"C:\Users\med kridis\Desktop\ContratPDF\Contrat" + IdSouscription + ".pdf");
