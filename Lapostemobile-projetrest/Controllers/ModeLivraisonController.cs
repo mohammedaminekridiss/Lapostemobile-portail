@@ -15,8 +15,7 @@ namespace Lapostemobile_projetrest.Controllers
             _modeLivraisonRepository = modeLivraisonRepository;
         }
 
-        // GET: api/ModeLivraison
-        [HttpGet]
+         [HttpGet]
         public async Task<ActionResult<IEnumerable<ModeLivraison>>> GetModeLivraisons()
         {
             try

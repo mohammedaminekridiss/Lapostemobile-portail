@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Lapostemobile_portail.Models;
+﻿using Lapostemobile_portail.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lapostemobile_projetrest.Repositories
@@ -42,12 +39,12 @@ namespace Lapostemobile_projetrest.Repositories
             var adresse = _context.Adresses.Find(id);
             if (adresse == null)
             {
-                return false; // Adresse non trouvée
+                return false;  
             }
 
             _context.Adresses.Remove(adresse);
             _context.SaveChanges();
-            return true; // Suppression réussie
+            return true;  
         }
     }
 }

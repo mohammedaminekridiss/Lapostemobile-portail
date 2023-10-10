@@ -1,5 +1,4 @@
-﻿using Lapostemobile_portail.Models;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 
 namespace Lapostemobile_MailService

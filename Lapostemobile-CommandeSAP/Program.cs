@@ -18,23 +18,21 @@ using (var channel = connection.CreateModel())
     channel.QueueBind(AppConfig.SapConfirmationQueue, AppConfig.ExchangeName, AppConfig.SapConfirmationRoutingKey, null);
     channel.BasicQos(0, 1, false);
 
-    // Set up a consumer to receive messages
-    var consumer = new EventingBasicConsumer(channel);
+     var consumer = new EventingBasicConsumer(channel);
 
     consumer.Received += (model, ea) =>
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine("Received message SAP: " + message);
+        Console.WriteLine("Message reçu  SAP: " + message);
         channel.BasicPublish(exchange: AppConfig.ExchangeName, routingKey: AppConfig.SapConfirmationRoutingKey, basicProperties: null, body: body);
-        Console.WriteLine("Sent message to contat queue : " + message + " -->" + new DateTime());
+        Console.WriteLine("Message envoyé vers  contrat (queue) : " + message + " -->" + new DateTime());
         channel.BasicAck(ea.DeliveryTag, false);
     };
 
-    // Start consuming messages
-    string consumerTag = channel.BasicConsume(queue: AppConfig.SapQueue, false, consumer: consumer);
+     string consumerTag = channel.BasicConsume(queue: AppConfig.SapQueue, false, consumer: consumer);
 
-    Console.WriteLine("Waiting for messages. Press [Enter] to exit.");
+    Console.WriteLine("En attendant les  messages. Cliquer sur [entrer] pour quitter.");
     Console.ReadLine();
     channel.BasicCancel(consumerTag);
 

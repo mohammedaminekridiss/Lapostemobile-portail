@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connString = builder.Configuration.GetConnectionString("AppDbConnection");
+ var connString = builder.Configuration.GetConnectionString("AppDbConnection");
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,8 +27,7 @@ builder.Services.AddSingleton<SAPService>();
 builder.Services.AddSingleton<ContratService>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

@@ -1,7 +1,5 @@
 ﻿using Lapostemobile_portail.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Lapostemobile_projetrest.Repositories
 {

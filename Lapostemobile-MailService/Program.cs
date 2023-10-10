@@ -22,7 +22,7 @@ using (var channel = connection.CreateModel())
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine("Received message: " + message);
+        Console.WriteLine("Message reçu: " + message);
         var data = JsonConvert.DeserializeAnonymousType(message, new { Email = "", Nom = "", Prenom = "" });
         if (data != null)
             MailService.sendMail(data.Nom, data.Prenom, data.Email);
@@ -30,7 +30,7 @@ using (var channel = connection.CreateModel())
     };
 
     string consumerTag = channel.BasicConsume(queue: AppConfig.MailQueue, false, consumer: consumer);
-    Console.WriteLine("Waiting for messages. Press [Enter] to exit.");
+    Console.WriteLine("En attendant les  messages. Cliquer sur [Entrer] pour quitter.");
     Console.ReadLine();
     channel.BasicCancel(consumerTag);
 

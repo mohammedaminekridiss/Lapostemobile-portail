@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace Lapostemobile_portail.Models;
+﻿namespace Lapostemobile_portail.Models;
 
 public partial class Ligne
 {

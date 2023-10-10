@@ -24,7 +24,7 @@ namespace Lapostemobile_projetrest.Services
                 var jsonMessage = JsonConvert.SerializeObject(new { prospect.Email, prospect.Nom, prospect.Prenom });
                 var body = Encoding.UTF8.GetBytes(jsonMessage);
                 channel.BasicPublish(exchange: AppConfig.ExchangeName, AppConfig.MailroutingKey, basicProperties: null, body: body);
-                Console.WriteLine($"Sent: {prospect}");
+                Console.WriteLine($"Envoyer: {prospect}");
 
             }
 

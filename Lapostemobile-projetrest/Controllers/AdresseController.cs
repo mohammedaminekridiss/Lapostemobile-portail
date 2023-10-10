@@ -1,9 +1,6 @@
 ﻿using Lapostemobile_portail.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Lapostemobile_projetrest.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lapostemobile_projetrest.Controllers
 {
@@ -18,16 +15,14 @@ namespace Lapostemobile_projetrest.Controllers
             _adresseRepository = adresseRepository;
         }
 
-        // GET: api/Adresse
-        [HttpGet]
+         [HttpGet]
         public ActionResult<IEnumerable<Adresse>> GetAdresse()
         {
             var adresses = _adresseRepository.GetAll();
             return Ok(adresses);
         }
 
-        // GET: api/Adresse/{id}
-        [HttpGet("{id}")]
+         [HttpGet("{id}")]
         public ActionResult<Adresse> GetAdresse(int id)
         {
             var adresse = _adresseRepository.GetById(id);
@@ -40,8 +35,7 @@ namespace Lapostemobile_projetrest.Controllers
             return adresse;
         }
 
-        // POST: api/Adresse
-        [HttpPost]
+         [HttpPost]
         public ActionResult<Adresse> CreateAdresse(Adresse adresse)
         {
             _adresseRepository.Add(adresse);
@@ -49,8 +43,7 @@ namespace Lapostemobile_projetrest.Controllers
             return CreatedAtAction(nameof(GetAdresse), new { id = adresse.IdAdresse }, adresse);
         }
 
-        // PUT: api/Adresse/{id}
-        [HttpPut("{id}")]
+         [HttpPut("{id}")]
         public IActionResult UpdateAdresse(int id, Adresse adresse)
         {
             if (id != adresse.IdAdresse)
@@ -63,8 +56,7 @@ namespace Lapostemobile_projetrest.Controllers
             return Ok();
         }
 
-        // DELETE: api/Adresse/{id}
-        [HttpDelete("{id}")]
+         [HttpDelete("{id}")]
         public IActionResult DeleteAdresse(int id)
         {
             var adresse = _adresseRepository.GetById(id);

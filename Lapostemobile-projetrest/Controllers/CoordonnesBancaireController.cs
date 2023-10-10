@@ -1,8 +1,6 @@
 ﻿using Lapostemobile_portail.Models;
 using Lapostemobile_projetrest.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Lapostemobile_projetrest.Controllers
 {
@@ -17,16 +15,14 @@ namespace Lapostemobile_projetrest.Controllers
             _coordonneesBancaireRepository = coordonneesBancaireRepository;
         }
 
-        // GET: api/CoordonnesBancaire
-        [HttpGet]
+         [HttpGet]
         public ActionResult<IEnumerable<CoordonneesBancaire>> GetCoordonnesBancaires()
         {
             var coordonnees = _coordonneesBancaireRepository.GetAllCoordonneesBancaires();
             return Ok(coordonnees);
         }
 
-        // GET: api/CoordonnesBancaire/{id}
-        [HttpGet("{id}")]
+         [HttpGet("{id}")]
         public ActionResult<CoordonneesBancaire> GetCoordonneesBancaire(int id)
         {
             var coordonneesBancaire = _coordonneesBancaireRepository.GetCoordonneesBancaireById(id);
@@ -37,8 +33,7 @@ namespace Lapostemobile_projetrest.Controllers
             return Ok(coordonneesBancaire);
         }
 
-        // POST: api/CoordonneesBancaire
-        [HttpPost]
+         [HttpPost]
         public IActionResult CreateCoordonneesBancaire(CoordonneesBancaire coordonneesBancaire)
         {
             _coordonneesBancaireRepository.AddCoordonneesBancaire(coordonneesBancaire);
@@ -47,8 +42,7 @@ namespace Lapostemobile_projetrest.Controllers
             return CreatedAtAction(nameof(GetCoordonneesBancaire), new { id = coordonneesBancaire.IdCoordonnees }, coordonneesBancaire);
         }
 
-        // PUT: api/CoordonneesBancaire/{id}
-        [HttpPut("{id}")]
+         [HttpPut("{id}")]
         public IActionResult UpdateCoordonneesBancaire(int id, CoordonneesBancaire coordonneesBancaire)
         {
             if (id != coordonneesBancaire.IdCoordonnees)
@@ -62,8 +56,7 @@ namespace Lapostemobile_projetrest.Controllers
             return Ok();
         }
 
-        // DELETE: api/CoordonneesBancaire/{id}
-        [HttpDelete("{id}")]
+         [HttpDelete("{id}")]
         public IActionResult DeleteCoordonneesBancaire(int id)
         {
             _coordonneesBancaireRepository.DeleteCoordonneesBancaire(id);

@@ -10,13 +10,11 @@ namespace Lapostemobile_projetrest.Controllers
     public class SouscriptionController : Controller
     {
         private readonly PortailContext context;
-        private readonly ContratService _contratService;
 
 
-        public SouscriptionController(PortailContext context, ContratService contratService)
+        public SouscriptionController(PortailContext context)
         {
             this.context = context;
-            this._contratService = contratService;
 
         }
 
@@ -73,7 +71,6 @@ namespace Lapostemobile_projetrest.Controllers
             };
             context.LigneArticles.Add(nouvelleLigneArticle);
             context.SaveChanges();
-            _contratService.sendContrat(nouvelleSouscription,nouvelleLigneArticle,nouvelleLigne);
 
 
             return Ok(nouvelleSouscription.IdSouscription);
@@ -112,8 +109,7 @@ namespace Lapostemobile_projetrest.Controllers
             return Ok();
             ;
         }
-        // PUT: api/Souscription/{id}
-        [HttpPut("{id}/{idl}")]
+         [HttpPut("{id}/{idl}")]
         public IActionResult ModifierSouscriptionAvecModeLivraison(int id, int idl)
         {
             var souscription = context.Souscriptions.FirstOrDefault(s => s.IdSouscription == id);

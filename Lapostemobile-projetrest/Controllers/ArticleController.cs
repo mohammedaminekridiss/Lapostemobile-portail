@@ -1,7 +1,6 @@
 ﻿using Lapostemobile_portail.Models;
 using Lapostemobile_projetrest.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lapostemobile_projetrest.Controllers
 {
@@ -17,15 +16,13 @@ namespace Lapostemobile_projetrest.Controllers
              this._articleRepository = articleRepository;
         }
 
-        // GET: api/Article
-        [HttpGet]
+         [HttpGet]
         public ActionResult<IEnumerable<Article>> GetArticles()
         {
             return Ok(_articleRepository.GetAll());
         }
 
-        // GET: api/Article/{id}
-        [HttpGet("{id}")]
+         [HttpGet("{id}")]
         public ActionResult<Article> GetArticle(int id)
         {
             var article = _articleRepository.GetById(id);
@@ -38,8 +35,7 @@ namespace Lapostemobile_projetrest.Controllers
             return article;
         }
 
-        // POST: api/Article
-        [HttpPost]
+         [HttpPost]
         public ActionResult<Article> CreateArticle(Article article)
         {
             _articleRepository.Add(article);
@@ -47,8 +43,7 @@ namespace Lapostemobile_projetrest.Controllers
             return CreatedAtAction(nameof(GetArticle), new { id = article.IdArticle }, article);
         }
 
-        // PUT: api/Article/{id}
-        [HttpPut("{id}")]
+         [HttpPut("{id}")]
         public IActionResult UpdateArticle(int id, Article article)
         {
             if (id != article.IdArticle)
@@ -61,8 +56,7 @@ namespace Lapostemobile_projetrest.Controllers
             return Ok();
         }
 
-        // DELETE: api/Article/{id}
-        [HttpDelete("{id}")]
+         [HttpDelete("{id}")]
         public IActionResult DeleteArticle(int id)
         {
             var article = _articleRepository.GetById(id);

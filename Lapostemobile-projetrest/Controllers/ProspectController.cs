@@ -1,6 +1,6 @@
 ﻿using Lapostemobile_portail.Models;
-using Microsoft.AspNetCore.Mvc;
 using Lapostemobile_projetrest.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lapostemobile_projetrest.Controllers
 {
@@ -11,12 +11,15 @@ namespace Lapostemobile_projetrest.Controllers
         private readonly PortailContext context;
         private readonly MailService _mailService;
         private readonly SAPService _sapService;
+        private readonly ContratService _contratService;
 
-        public ProspectController(PortailContext context, MailService mailService, SAPService sAPService )
+        public ProspectController(PortailContext context, MailService mailService, SAPService sAPService, ContratService contratService)
         {
             this.context = context;
             this._mailService = mailService;
             this._sapService = sAPService;
+            this._contratService = contratService;
+
         }
         // GET: api/Prospect/{id}
         [HttpGet("{id}")]
@@ -59,7 +62,8 @@ namespace Lapostemobile_projetrest.Controllers
             this.context.SaveChanges();
             _mailService.sendMail(prospect);
             _sapService.sendSAP();
- 
+            _contratService.sendContrat(prospect);
+
             return CreatedAtAction(nameof(GetProspect), new { id = prospect.IdProspect }, prospect);
         }
        

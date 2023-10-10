@@ -26,7 +26,7 @@ using (var channel = connection.CreateModel())
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine("Confirmation Received message : " + new DateTime());
+        Console.WriteLine("Confirmation Message reçu : " + new DateTime());
         confirmation = true;       
         channel.BasicAck(ea.DeliveryTag, false);
     };
@@ -39,13 +39,13 @@ using (var channel = connection.CreateModel())
          
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        var data = JsonConvert.DeserializeAnonymousType(message, new { IdSouscription = 0, IdArticle = 0, IdOffreEngagement = 0 });
+        var data = JsonConvert.DeserializeAnonymousType(message, new { IdSouscription = 0});
 
         if (data != null)
         {
-            ContratPDFService.GeneratePDFfromhtml(data.IdSouscription, data.IdArticle, data.IdOffreEngagement);
+            ContratPDFService.GeneratePDFfromhtml(data.IdSouscription);
         }
-        Console.WriteLine("Received message Contrat : " + message);
+        Console.WriteLine("Message reçu Contrat : " + message);
 
         confirmation = false;
         channel.BasicAck(ea.DeliveryTag, false);
@@ -53,7 +53,7 @@ using (var channel = connection.CreateModel())
 
     string consumerTag = channel.BasicConsume(queue: AppConfig.ContratQueue, false, consumer: consumer);
 
-    Console.WriteLine("Waiting for messages. Press [Enter] to exit.");
+    Console.WriteLine("En attendant les  messages. Cliquer sur [Entrer] pour quitter.");
     Console.ReadLine();
     channel.BasicCancel(consumerTag);
     channel.BasicCancel(consumerConfirmationTag);

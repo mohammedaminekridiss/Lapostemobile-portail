@@ -17,9 +17,9 @@ namespace Lapostemobile_projetrest.Services
                 channel.ExchangeDeclare(AppConfig.ExchangeName, ExchangeType.Direct);
                 channel.QueueDeclare(queue: AppConfig.SapQueue, durable: false, exclusive: false, autoDelete: false, arguments: null);
                 channel.QueueBind(AppConfig.SapQueue, AppConfig.ExchangeName, AppConfig.SapRoutingKey, null);
-                var body = Encoding.UTF8.GetBytes("hello Contrat");
+                var body = Encoding.UTF8.GetBytes("Contrat!");
                 channel.BasicPublish(exchange: AppConfig.ExchangeName, routingKey: AppConfig.SapRoutingKey, basicProperties: null, body: body);
-                Console.WriteLine($"Sent: SAP");
+                Console.WriteLine($"Envoyer: SAP");
 
             }
 

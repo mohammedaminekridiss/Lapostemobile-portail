@@ -1,8 +1,6 @@
 ﻿using Lapostemobile_portail.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Lapostemobile_projetrest.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lapostemobile_projetrest.Controllers
 {
@@ -18,8 +16,7 @@ namespace Lapostemobile_projetrest.Controllers
         }
 
 
-        // GET: api/CaracteristiquesArticle
-        [HttpGet]
+         [HttpGet]
         public ActionResult<IEnumerable<CaracteristiquesArticle>> GetCaracteristiquesArticles()
         {
             var caracteristiquesArticles = _caracteristiquesArticleRepository.GetAll();
@@ -41,8 +38,7 @@ namespace Lapostemobile_projetrest.Controllers
         }
 
 
-        // POST: api/CaracteristiquesArticle
-        [HttpPost]
+         [HttpPost]
         public ActionResult<CaracteristiquesArticle> CreateCaracteristiquesArticle(CaracteristiquesArticle caracteristiquesarticle)
         {
             _caracteristiquesArticleRepository.Add(caracteristiquesarticle);
@@ -50,8 +46,7 @@ namespace Lapostemobile_projetrest.Controllers
             return CreatedAtAction(nameof(GetCaracteristiquesArticles), new { id = caracteristiquesarticle.IdCaracteristiquesArticles }, caracteristiquesarticle);
         }
 
-        // PUT: api/CaracteristiquesArticle/{id}
-        [HttpPut("{id}")]
+         [HttpPut("{id}")]
         public IActionResult UpdateCaracteristiquesArticle(int id, CaracteristiquesArticle caracteristiquesarticle)
         {
             if (id != caracteristiquesarticle.IdCaracteristiquesArticles)
@@ -64,8 +59,7 @@ namespace Lapostemobile_projetrest.Controllers
             return Ok();
         }
 
-        // DELETE: api/CaracteristiquesArticle/{id}
-        [HttpDelete("{id}")]
+         [HttpDelete("{id}")]
         public IActionResult DeleteCaracteristiquesArticle(int idArticle)
         {
             var caracteristiquesarticle = _caracteristiquesArticleRepository.GetByArticleId(idArticle);
@@ -76,7 +70,7 @@ namespace Lapostemobile_projetrest.Controllers
             _caracteristiquesArticleRepository.Delete(idArticle);
 
             return Ok();
-            ;
+         
         }
     }
 }
