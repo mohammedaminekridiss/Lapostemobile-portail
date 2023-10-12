@@ -21,13 +21,13 @@ using (var channel = connection.CreateModel())
     channel.BasicQos(0, 1, false);
 
     var consumerConfirmation = new EventingBasicConsumer(channel);
-   
+
     consumerConfirmation.Received += (model, ea) =>
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine("Confirmation Message reçu : " + new DateTime());
-        confirmation = true;       
+        confirmation = true;
         channel.BasicAck(ea.DeliveryTag, false);
     };
 
@@ -36,19 +36,22 @@ using (var channel = connection.CreateModel())
     var consumer = new EventingBasicConsumer(channel);
     consumer.Received += (model, ea) =>
     {
-         
-        var body = ea.Body.ToArray();
-        var message = Encoding.UTF8.GetString(body);
-        var data = JsonConvert.DeserializeAnonymousType(message, new { IdSouscription = 0});
-
-        if (data != null)
+        if (confirmation)
         {
-            ContratPDFService.GeneratePDFfromhtml(data.IdSouscription);
-        }
-        Console.WriteLine("Message reçu Contrat : " + message);
+            var body = ea.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+            var data = JsonConvert.DeserializeAnonymousType(message, new { IdSouscription = 0 });
 
-        confirmation = false;
-        channel.BasicAck(ea.DeliveryTag, false);
+            if (data != null)
+            {
+                ContratPDFService.GeneratePDFfromhtml(data.IdSouscription);
+            }
+            Console.WriteLine("Message reçu Contrat : " + message);
+
+            confirmation = false;
+            channel.BasicAck(ea.DeliveryTag, false);
+        }
+
     };
 
     string consumerTag = channel.BasicConsume(queue: AppConfig.ContratQueue, false, consumer: consumer);
